@@ -1,18 +1,29 @@
 <!DOCTYPE html>
+
 <html>
+
   <head>
-    <title>My AR Door</title>
+
+    <title>Door Image AR</title>
+
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
     <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
   </head>
+
   <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs>
-      <!-- パターンマーカー (.patt ファイル) を使用 -->
-      <a-marker type="pattern" url="pattern-marker.patt">
-        <!-- Welcome の文字を表示 -->
-        <a-text value="Welcome!" scale="3 3 3" color="red" position="0 3 0"></a-text>
-      </a-marker>
+
+    <a-scene mindar-image="imageTargetSrc: mind-file.mind;" mindar>
+
       <a-entity camera></a-entity>
+
+      <!-- ここで画像を認識して数字を表示 -->
+
+      <a-text value="Welcome!" scale="2 2 2" position="0 2 0"></a-text>
+
     </a-scene>
+
   </body>
+
 </html>
