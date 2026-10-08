@@ -27,13 +27,25 @@
     <!-- ★ここからJavaScriptを追加★ -->
   <script>
     AFRAME.registerComponent('look-at-camera', {
-      tick: function () {
-        var cameraEl = this.el.sceneEl.camera;
-        if (cameraEl) {
-          this.el.object3D.lookAt(cameraEl.el.object3D.position);
-        }
-      }
-    });
+    tick: function () {
+      var cameraEl = this.el.sceneEl.camera;
+      if (!cameraEl) return;
+
+      var obj = this.el.object3D;
+      var camObj = cameraEl.el.object3D;
+
+      // 1. カメラの位置を向く
+      obj.lookAt(camObj.position);
+
+      // 2. カメラの回転（Z軸）に合わせて文字の上方向を画面上部に合わせる
+      obj.quaternion.multiplyQuaternions(camObj.quaternion, obj.quaternion);
+      
+      // 必要に応じて画面に対する傾き補正を保持
+      var euler = new THREE.Euler().setFromQuaternion(obj.quaternion, 'YXZ');
+      euler.z = camObj.rotation.z; // カメラの傾きに同調させる
+      obj.quaternion.setFromEuler(euler);
+    }
+   });
   </script>
   <!-- ★ここまで★ -->
   </head>
