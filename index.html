@@ -24,6 +24,18 @@
         z-index: 1000;
       }
     </style>
+    <!-- ★ここからJavaScriptを追加★ -->
+  <script>
+    AFRAME.registerComponent('look-at-camera', {
+      tick: function () {
+        var cameraEl = this.el.sceneEl.camera;
+        if (cameraEl) {
+          this.el.object3D.lookAt(cameraEl.el.object3D.position);
+        }
+      }
+    });
+  </script>
+  <!-- ★ここまで★ -->
   </head>
   <body>
     <!-- メッセージ表示エリア -->
@@ -32,7 +44,7 @@
     <!-- AR.jsのシーン -->
     <a-scene embedded arjs="debugUIEnabled: false">
       <a-marker preset="hiro">
-        <a-text value="GAME START" color="red" position="0 0.5 0" scale="3 3 3" align="center"></a-text>
+        <a-text value="GAME START" color="red" position="0 0.5 0" scale="3 3 3" align="center" look-at-camera></a-text>
       </a-marker>
       <a-entity camera></a-entity>
     </a-scene>
